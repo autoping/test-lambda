@@ -10,12 +10,19 @@ provider:
   lambdaHashingVersion: 20201221
 
 functions:
-  helloWorld:
-    handler: handler.helloWorld
+  getMessageList:
+    handler: handler.getMessageList
     events:
       - http:
-          path: hello-world
+          path: messages
           method: get
+          cors: true
+  createMessage:
+    handler: handler.createMessage
+    events:
+      - http:
+          path: messages
+          method: post
           cors: true
 
 plugins:
