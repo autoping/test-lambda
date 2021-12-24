@@ -9,6 +9,14 @@ provider:
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
 
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:*"
+          Resource: "*"
+
 functions:
   getMessageList:
     handler: handler.getMessageList

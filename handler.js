@@ -1,48 +1,45 @@
 'use strict';
 
+const AWS = require("aws-sdk");
 const uuid = require("uuid");
 
-const messages = [
-  {
-    authorId: "0ef2a10d831af83ad4f712fd97d4df5",
-    content: "Newer message from 24th of December",
-    createdAt: "2021-12-24T09:30:00.000Z",
-    id: "b09283b6-d9b4-42c7-b051-6c14738dc096"
-  },
-  {
-    authorId: "0ef2a10d831af83ad4f712fd97d4df5",
-    content: "Old message from 20th of December",
-    createdAt: "2021-12-20T08:00:00.000Z",
-    id: "82a663b9-9f3d-449b-ba20-7d774573a022"
-  }
-];
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-module.exports.getMessageList = (event, context, callback) => {
-  const response = {
+module.exports.getMessageList = async (event) => {
+
+  let params = {
+    TableName: "autoping-test-dynamodb"
+  }
+
+  let result = await docClient.scan(params).promise();
+
+  return {
     statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify({
-      items: messages
-    }),
+      items: result.Items
+    })
   };
-  callback(null, response);
 };
 
-module.exports.createMessage = (event, context, callback) => {
-  let message = JSON.parse(event.body);
-  message.id = uuid.v4();
+module.exports.createMessage = async (event) => {
+  const message = JSON.parse(event.body);
   message.createdAt = new Date().toJSON();
-  messages.push(message);
-  const response = {
+
+  let params = {
+    TableName: "autoping-test-dynamodb",
+    Item: message
+  };
+
+  let result = await docClient.put(params).promise();
+
+  return {
     statusCode: 201,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    body: JSON.stringify({
-      items: messages
-    }),
+    body: JSON.stringify(message)
   };
-  callback(null, response);
 };
