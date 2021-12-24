@@ -20,6 +20,9 @@ const messages = [
 module.exports.getMessageList = (event, context, callback) => {
   const response = {
     statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     body: JSON.stringify({
       items: messages
     }),
@@ -34,6 +37,9 @@ module.exports.createMessage = (event, context, callback) => {
   messages.push(message);
   const response = {
     statusCode: 201,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     body: JSON.stringify({
       items: messages
     }),
