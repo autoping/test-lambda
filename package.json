@@ -1,0 +1,22 @@
+{
+  "name": "autoping-test-lambda",
+  "version": "1.0.0",
+  "description": "Test AWS lambda function to verify the completeness of cloud account setup",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/autoping/test-lambda.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jimp": "^0.16.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "serverless-offline": "^8.3.1"
+  }
+}

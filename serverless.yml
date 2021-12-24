@@ -1,0 +1,22 @@
+service: autoping-test-lambda
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  stage: dev
+  region: eu-central-1
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+functions:
+  helloWorld:
+    handler: handler.helloWorld
+    events:
+      - http:
+          path: hello-world
+          method: get
+          cors: true
+
+plugins:
+  - serverless-offline
