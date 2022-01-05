@@ -6,7 +6,7 @@ provider:
   name: aws
   stage: dev
   region: eu-central-1
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   lambdaHashingVersion: 20201221
 
   iam:
@@ -34,4 +34,5 @@ functions:
           cors: true
 
 plugins:
+  - serverless-ignore
   - serverless-offline
