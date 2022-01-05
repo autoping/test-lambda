@@ -19,7 +19,8 @@ module.exports.getMessageList = async (event) => {
       'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify({
-      items: result.Items
+      items: result.Items,
+      total: 42
     })
   };
 };
